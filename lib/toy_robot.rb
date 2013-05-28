@@ -23,30 +23,30 @@ class ToyRobot
     
     # PLACE x,y,direction
     if input =~ /^place\s+([-|+]?\d)\s*,\s*([-|+]?\d)\s*,\s*(north|east|south|west){1}$/i
-      return place($1.to_i, $2.to_i, $3.downcase)
+      place($1.to_i, $2.to_i, $3.downcase)
     
     # MOVE
     elsif input =~ /^move$/i
-      return @direction.length == 0 ? errors[:not_placed] : move
+      @direction.length == 0 ? errors[:not_placed] : move
   
     # LEFT
     elsif input =~ /^left$/i
-      return @direction.length == 0 ? errors[:not_placed] : left
+      @direction.length == 0 ? errors[:not_placed] : left
   
     # RIGHT
     elsif input =~ /^right$/i
-      return @direction.length == 0 ? errors[:not_placed] : right
+      @direction.length == 0 ? errors[:not_placed] : right
   
     # REPORT
     elsif input =~ /^report$/i
-      return @direction.length == 0 ? errors[:not_placed] : report
+      @direction.length == 0 ? errors[:not_placed] : report
   
     # EXIT
     elsif input =~ /^exit$/i
       raise SystemExit
   
     else
-      return errors[:invalid]
+      errors[:invalid]
     end
   end
   
@@ -63,7 +63,7 @@ class ToyRobot
     @y = y
     @direction = direction
     
-    return report
+    report
   end
   
   def move
@@ -82,23 +82,21 @@ class ToyRobot
       @x -= 1
     end
     
-    return report
+    report
   end
   
   def left
     @direction = directions[index == 0 ? 3 : index - 1]
-    
-    return report
+    report
   end
   
   def right
     @direction = directions[index == 3 ? 0 : index + 1]
-    
-    return report
+    report
   end
   
   def report
-    return "#{@x},#{@y},#{@direction.upcase}"
+    "#{@x},#{@y},#{@direction.upcase}"
   end
   
   def index
