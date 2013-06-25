@@ -25,22 +25,10 @@ class ToyRobot
     if input =~ /^place\s+([-|+]?\d)\s*,\s*([-|+]?\d)\s*,\s*(north|east|south|west){1}$/i
       place($1.to_i, $2.to_i, $3.downcase)
     
-    # MOVE
-    elsif input =~ /^move$/i
-      @direction.length == 0 ? errors[:not_placed] : move
-  
-    # LEFT
-    elsif input =~ /^left$/i
-      @direction.length == 0 ? errors[:not_placed] : left
-  
-    # RIGHT
-    elsif input =~ /^right$/i
-      @direction.length == 0 ? errors[:not_placed] : right
-  
-    # REPORT
-    elsif input =~ /^report$/i
-      @direction.length == 0 ? errors[:not_placed] : report
-  
+    # MOVE, LEFT, RIGHT, REPORT
+    elsif input =~ /^(move|left|right|report)$/i
+      not_placed? ? errors[:not_placed] : send($1.to_sym)
+    
     # EXIT
     elsif input =~ /^exit$/i
       raise SystemExit
@@ -101,6 +89,10 @@ class ToyRobot
   
   def index
     directions.index(@direction)
+  end
+  
+  def not_placed?
+    @direction.length == 0
   end
   
   def directions
