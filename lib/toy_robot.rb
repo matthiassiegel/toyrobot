@@ -27,7 +27,7 @@ class ToyRobot
     
     # MOVE, LEFT, RIGHT, REPORT
     elsif input =~ /^(move|left|right|report)$/i
-      not_placed? ? errors[:not_placed] : send($1.to_sym)
+      not_placed? ? errors[:not_placed] : send($1.downcase.to_sym)
     
     # EXIT
     elsif input =~ /^exit$/i
